@@ -1,0 +1,27 @@
+<input> 30 8
+
+read 1	; r1 := 30 // mod
+read 2	; r2 := 8
+
+load =0	; r3 :=0 // div
+store 3	
+
+loop:	; while (r2 < r1) {
+load 2	; r0 := r2 - r1
+sub 1
+jgtz finish
+
+load 1	; r1 := r1 - r2
+sub 2
+store 1
+
+load =1	; r3 := r3 + 1
+add 3
+store 3
+
+load =0
+jz loop
+finish:
+write 3
+write 1
+halt
