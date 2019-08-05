@@ -1,0 +1,45 @@
+<input> 30 6
+
+read 1  ; r1 := 6
+read 2  ; r2 := 30
+
+; check which one is bigger
+load 1  ;	r0 := r1 - r2
+sub 2   ;
+
+jgtz calculation
+
+; switch r1 with r2 using r3
+load 2	; r3 := r2
+store 3
+load 1	; r2 := r1
+store 2
+load 3	; r1 := r3
+store 1
+
+; on this line r1 stores bigger number than r2
+calculation:
+
+; init r3 with 0
+load =0 ; r3 := 0 // reuse of r3
+store 3
+
+repeat:	; start while loop
+load =1	
+sub 2
+jgtz finish ; while	(r2 > 0)
+
+load 1	; r3 := r3 + r1
+add 3
+store 3
+
+load 2	; r2 := r2 - 1
+sub =1
+store 2
+
+load =0
+jz repeat
+finish:	; end while loop
+
+write 3
+halt
