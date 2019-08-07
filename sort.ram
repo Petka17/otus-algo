@@ -1,0 +1,92 @@
+<input> 3 6 3 7
+; r1 - number of elements left in input [N]
+; r2 - index on which the sorted array is started [k]
+; r3 - backwards index, used to check where to put new element [j]
+; r4 - last element index [i]
+; r5 - new element [curr]
+; r6 - temp place to switch element [temp]
+
+read 1	; r1 := N
+
+load =1	; check if N = 0
+sub 1
+jgtz finish
+
+load =7	; k = 7
+store 2	; 
+
+store 3	; j = k
+
+store 4	; i = k
+
+read *3	; x_0 = input[0]
+
+load 1	; N = N - 1
+sub =1
+store 1
+
+jz print	; if N == 0 goto print
+
+loop:
+	read 5 ; curr := getNextItem()
+	
+	check_place: ; while(x[j] > curr) {
+	load 5 	
+	sub *3
+	jgtz insert
+
+	load *3	; temp = x[j]
+	store 6
+
+	load 3	; j = j + 1
+	add =1
+	store 3
+
+	load 6	; x[j] = temp
+	store *3
+	
+	load 3	; j = j - 2
+	sub =2
+	store 3
+
+	sub 2	; if (k <= j) goto next step
+	jgtz check_place
+	jz check_place
+	
+	insert:
+	load =1	; j = j + 1
+	add 3
+	store 3
+	
+	load 5	; x[j] = curr
+	store *3
+
+	load =1	; i = i + 1
+	add 4
+	store 4
+	
+	store 3	; j = i
+
+	load 1	; N = N - 1
+	sub =1
+	store 1
+
+	jgtz loop	; if N > 0 goto loop
+
+print:
+; r2 - index on which the sorted array is started [k]
+; r4 - last element index [i]
+
+write *2 	; print(x[k])
+
+load 2	; k = k + 1
+add =1
+store 2
+
+load 4	;  if (i - k > 0)
+sub 2
+jgtz print
+jz print
+
+finish:
+halt
